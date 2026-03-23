@@ -3,50 +3,433 @@
 <head>
   <meta charset="UTF-8">
   <title>İlk Sitem</title>
+</head>
+<body>
+
+  <h1>Merhaba 👋</h1>
+  <p>Bu benim ilk web sitem!</p>
+
+  <button>Tıkla</button>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VetusClub Ana Sayfa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400&display=swap" rel="stylesheet" />
   <style>
-    body {
+    * {
       margin: 0;
-      min-height: 100vh;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Ubuntu", Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #e9e9e9;
+      color: #2e2e2e;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 40px auto 0;
+      padding: 0 20px 40px;
+    }
+
+    .topbar {
+      background: #f8f8f8;
+      border-radius: 28px;
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 22px;
+      color: #5f0aa7;
+    }
+
+    .logo-plus {
+      width: 18px;
+      height: 18px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .logo-plus::before,
+    .logo-plus::after {
+      content: "";
+      position: absolute;
+      background: #f2c300;
+      border-radius: 4px;
+    }
+
+    .logo-plus::before {
+      width: 18px;
+      height: 6px;
+      top: 6px;
+      left: 0;
+    }
+
+    .logo-plus::after {
+      width: 6px;
+      height: 18px;
+      top: 0;
+      left: 6px;
+    }
+
+    .logo span.small {
+      color: #f2c300;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .icon-btn,
+    .message-btn,
+    .user-btn {
+      border: 2px solid #6a0dad;
+      background: #fff;
+      color: #6a0dad;
+      border-radius: 999px;
+      height: 52px;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      background: #0f0f14; /* koyu arka plan */
-      color: #ffffff;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    .container {
-      padding: 24px;
-    }
-
-    button {
-      background: #0d6efd; /* mavi buton */
-      border: none;
-      color: #fff;
-      padding: 12px 22px;
-      border-radius: 10px;
-      font-size: 16px;
       cursor: pointer;
     }
 
-    button:hover {
-      background: #0b5ed7;
+    .icon-btn {
+      width: 52px;
+      position: relative;
+      font-size: 20px;
     }
 
-    button:focus {
-      outline: 2px solid rgba(13, 110, 253, 0.5);
-      outline-offset: 3px;
+    .notif {
+      position: absolute;
+      top: -6px;
+      right: -4px;
+      background: #e05555;
+      color: white;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .message-btn,
+    .user-btn {
+      padding: 0 20px;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .message-btn {
+      gap: 10px;
+    }
+
+    .message-btn span,
+    .user-btn span {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .stories {
+      margin: 28px 0 36px;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 24px;
+      justify-items: center;
+    }
+
+    .story {
+      width: 105px;
+      height: 105px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 14px 25px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+    }
+
+    .story-inner {
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      background:
+        linear-gradient(to bottom, #dff3ff 0 58%, #c1d660 58% 67%, #90b800 67% 100%);
+      border: 5px solid #d6edf8;
+    }
+
+    .welcome-card {
+      background: #f8f8f8;
+      border-radius: 30px;
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.08);
+      padding: 38px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 38px;
+    }
+
+    .welcome-text h1 {
+      font-size: 34px;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      font-weight: 800;
+    }
+
+    .welcome-text p {
+      font-size: 26px;
+      color: #666;
+      font-style: italic;
+    }
+
+    .profile-btn {
+      background: #6a0dad;
+      color: white;
+      border: none;
+      border-radius: 999px;
+      padding: 18px 42px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 12px 22px rgba(106, 13, 173, 0.22);
+      white-space: nowrap;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .card {
+      background: #f8f8f8;
+      border-radius: 30px;
+      min-height: 340px;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .mini-plus {
+      position: absolute;
+      left: 28px;
+      top: 170px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      color: #f2c300;
+      font-size: 34px;
+      font-weight: bold;
+    }
+
+    .card-icon {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .card h2 {
+      font-size: 34px;
+      font-weight: 800;
+    }
+
+    .bottom-yellow {
+      height: 44px;
+      background: #f2c300;
+      margin-top: 40px;
+      width: 100%;
+    }
+
+    .bottom-purple {
+      height: 26px;
+      background: #6a0dad;
+      width: 100%;
+    }
+
+    @media (max-width: 1100px) {
+      .stories {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .welcome-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .profile-btn {
+        align-self: flex-start;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .topbar {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+      }
+
+      .top-actions {
+        flex-wrap: wrap;
+      }
+
+      .stories {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      .welcome-text h1 {
+        font-size: 28px;
+      }
+
+      .welcome-text p {
+        font-size: 20px;
+      }
+
+      .card {
+        min-height: 280px;
+      }
+
+      .card-icon {
+        width: 88px;
+        height: 88px;
+      }
+
+      .card h2 {
+        font-size: 28px;
+      }
+
+      .mini-plus {
+        top: 145px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .stories {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .message-btn,
+      .user-btn {
+        padding: 0 16px;
+      }
+
+      .welcome-card {
+        padding: 24px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Merhaba 👋</h1>
-    <p>Bu benim ilk web sitem!</p>
+  <div class="page">
+    <header class="topbar">
+      <div class="logo">
+        <span class="logo-plus"></span>
+        <span><span class="small">vetus</span>club</span>
+      </div>
 
-    <button type="button">Tıkla</button>
+      <div class="top-actions">
+        <button class="icon-btn" aria-label="Gece modu">
+          ☾
+          <span class="notif">2</span>
+        </button>
+        <button class="message-btn">
+          <span>Mesaj Kutusu</span>
+        </button>
+        <button class="user-btn">
+          <span>Anıl ▼</span>
+        </button>
+      </div>
+    </header>
+
+    <section class="stories">
+      <div class="story"><div class="story-inner"></div></div>
+      <div class="story"><div class="story-inner"></div></div>
+      <div class="story"><div class="story-inner"></div></div>
+      <div class="story"><div class="story-inner"></div></div>
+      <div class="story"><div class="story-inner"></div></div>
+      <div class="story"><div class="story-inner"></div></div>
+      <div class="story"><div class="story-inner"></div></div>
+    </section>
+
+    <section class="welcome-card">
+      <div class="welcome-text">
+        <h1>VetUsClub'a Hoş Geldiniz, Anıl LOKMAN</h1>
+        <p>Modülleri görüntülemek için profil bilgilerinizi güncelleyiniz..</p>
+      </div>
+      <button class="profile-btn">Profil Bilgilerim</button>
+    </section>
+
+    <section class="cards">
+      <div class="card">
+        <div class="mini-plus">+</div>
+        <div class="card-icon">
+          <img src="images/okul.svg" alt="Okul ikonu" />
+        </div>
+        <h2>Okul</h2>
+      </div>
+
+      <div class="card">
+        <div class="mini-plus">+</div>
+        <div class="card-icon">🌐</div>
+        <h2>VetUsBlack</h2>
+      </div>
+
+      <div class="card">
+        <div class="mini-plus">+</div>
+        <div class="card-icon">🏅</div>
+        <h2>Süreklilik</h2>
+      </div>
+    </section>
   </div>
 
+  <div class="bottom-yellow"></div>
+  <div class="bottom-purple"></div>
 </body>
 </html>
