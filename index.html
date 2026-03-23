@@ -138,10 +138,13 @@
 
     .stories {
       margin: 28px 0 36px;
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
+      display: flex;
       gap: 24px;
-      justify-items: center;
+      justify-content: flex-start;
+      overflow-x: auto;
+      padding: 0 4px 12px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
     }
 
     .story {
@@ -154,6 +157,9 @@
       align-items: center;
       justify-content: center;
       padding: 8px;
+      border: 0;
+      cursor: pointer;
+      scroll-snap-align: start;
     }
 
     .story-inner {
@@ -163,6 +169,136 @@
       background:
         linear-gradient(to bottom, #dff3ff 0 58%, #c1d660 58% 67%, #90b800 67% 100%);
       border: 5px solid #d6edf8;
+    }
+
+    .story:focus-visible {
+      outline: 3px solid rgba(106, 13, 173, 0.35);
+      outline-offset: 6px;
+    }
+
+    .story-viewer {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      display: none;
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .story-viewer.open {
+      display: flex;
+    }
+
+    .story-viewer-card {
+      width: min(520px, 96vw);
+      height: min(740px, 92vh);
+      background: #121212;
+      border-radius: 22px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+    }
+
+    .story-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 12px;
+      display: flex;
+      gap: 6px;
+      z-index: 4;
+    }
+
+    .story-segment {
+      flex: 1;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .story-segment > span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: #ffffff;
+      border-radius: 999px;
+    }
+
+    .story-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 5;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 0;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
+      font-size: 22px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .story-frame {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 72px 22px 30px;
+      z-index: 2;
+      user-select: none;
+    }
+
+    .story-frame-inner {
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .story-frame-emoji {
+      font-size: 64px;
+      margin-bottom: 10px;
+    }
+
+    .story-frame-title {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .story-frame-subtitle {
+      font-size: 18px;
+      opacity: 0.88;
+      line-height: 1.3;
+    }
+
+    .story-nav {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      border: 0;
+      background: transparent;
+      z-index: 3;
+      cursor: pointer;
+    }
+
+    .story-nav.left {
+      left: 0;
+    }
+
+    .story-nav.right {
+      right: 0;
     }
 
     .welcome-card {
@@ -326,7 +462,7 @@
 
     @media (max-width: 1100px) {
       .stories {
-        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
       }
 
       .cards {
@@ -355,8 +491,7 @@
       }
 
       .stories {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 18px;
+        gap: 16px;
       }
 
       .welcome-text h1 {
@@ -387,12 +522,22 @@
 
     @media (max-width: 520px) {
       .stories {
-        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
       }
 
       .message-btn,
       .user-btn {
         padding: 0 16px;
+      }
+
+      .story {
+        width: 95px;
+        height: 95px;
+      }
+
+      .story-inner {
+        width: 78px;
+        height: 78px;
       }
 
       .welcome-card {
@@ -424,13 +569,27 @@
     </header>
 
     <section class="stories">
-      <div class="story"><div class="story-inner"></div></div>
-      <div class="story"><div class="story-inner"></div></div>
-      <div class="story"><div class="story-inner"></div></div>
-      <div class="story"><div class="story-inner"></div></div>
-      <div class="story"><div class="story-inner"></div></div>
-      <div class="story"><div class="story-inner"></div></div>
-      <div class="story"><div class="story-inner"></div></div>
+      <button class="story" type="button" data-story-index="0" aria-label="Story 1">
+        <div class="story-inner"></div>
+      </button>
+      <button class="story" type="button" data-story-index="1" aria-label="Story 2">
+        <div class="story-inner"></div>
+      </button>
+      <button class="story" type="button" data-story-index="2" aria-label="Story 3">
+        <div class="story-inner"></div>
+      </button>
+      <button class="story" type="button" data-story-index="3" aria-label="Story 4">
+        <div class="story-inner"></div>
+      </button>
+      <button class="story" type="button" data-story-index="4" aria-label="Story 5">
+        <div class="story-inner"></div>
+      </button>
+      <button class="story" type="button" data-story-index="5" aria-label="Story 6">
+        <div class="story-inner"></div>
+      </button>
+      <button class="story" type="button" data-story-index="6" aria-label="Story 7">
+        <div class="story-inner"></div>
+      </button>
     </section>
 
     <section class="welcome-card">
@@ -472,5 +631,413 @@
 
   <div class="bottom-yellow"></div>
   <div class="bottom-purple"></div>
+
+  <div
+    id="storyViewer"
+    class="story-viewer"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Story görüntüleyici"
+  >
+    <div class="story-viewer-card" id="storyViewerCard">
+      <div class="story-progress" id="storyProgress"></div>
+      <button class="story-close" type="button" id="storyCloseBtn" aria-label="Kapat">
+        ×
+      </button>
+
+      <button class="story-nav left" type="button" id="storyPrevBtn" aria-label="Önceki">
+        &nbsp;
+      </button>
+      <button class="story-nav right" type="button" id="storyNextBtn" aria-label="Sonraki">
+        &nbsp;
+      </button>
+
+      <div class="story-frame" id="storyFrame">
+        <div class="story-frame-inner">
+          <div class="story-frame-emoji" id="storyFrameEmoji">📣</div>
+          <div class="story-frame-title" id="storyFrameTitle">Story</div>
+          <div class="story-frame-subtitle" id="storyFrameSubtitle">Henüz bir içerik seçilmedi.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const durationMs = 5000;
+
+      // Placeholder story data: İstersen görseller/URL'ler ekleyip bu kısmı güncelleyebiliriz.
+      const stories = [
+        {
+          frames: [
+            {
+              emoji: "🎓",
+              title: "Okul Modülü",
+              subtitle: "Dersler, etkinlikler ve duyurular burada.",
+              bg: "linear-gradient(135deg, #6a0dad, #2e8bff)"
+            },
+            {
+              emoji: "🗓️",
+              title: "Güncel Takvim",
+              subtitle: "Haftalık planlamayı tek ekranda gör.",
+              bg: "linear-gradient(135deg, #2e8bff, #00c2a8)"
+            },
+            {
+              emoji: "📢",
+              title: "Duyurular",
+              subtitle: "Önemli mesajları kaçırma.",
+              bg: "linear-gradient(135deg, #00c2a8, #f2c300)"
+            }
+          ]
+        },
+        {
+          frames: [
+            {
+              emoji: "🏅",
+              title: "Başarılar",
+              subtitle: "İlerleyişini takip et ve motive ol.",
+              bg: "linear-gradient(135deg, #f2c300, #6a0dad)"
+            },
+            {
+              emoji: "💪",
+              title: "Hedefler",
+              subtitle: "Kısa vadeli hedeflerle ilerle.",
+              bg: "linear-gradient(135deg, #6a0dad, #ff4d6d)"
+            },
+            {
+              emoji: "📈",
+              title: "Performans",
+              subtitle: "Gelişimini zamanla karşılaştır.",
+              bg: "linear-gradient(135deg, #ff4d6d, #2e8bff)"
+            }
+          ]
+        },
+        {
+          frames: [
+            {
+              emoji: "🌐",
+              title: "VetUsBlack",
+              subtitle: "Yakında: özel içerikler ve modüller.",
+              bg: "linear-gradient(135deg, #111827, #6a0dad)"
+            },
+            {
+              emoji: "🧩",
+              title: "Özel Modüller",
+              subtitle: "Daha fazla seçenek kapıda.",
+              bg: "linear-gradient(135deg, #6a0dad, #0ea5e9)"
+            },
+            {
+              emoji: "✨",
+              title: "Yeni Deneyimler",
+              subtitle: "Daha modern bir görünüm için.",
+              bg: "linear-gradient(135deg, #0ea5e9, #22c55e)"
+            }
+          ]
+        },
+        {
+          frames: [
+            {
+              emoji: "🔔",
+              title: "Hatırlatmalar",
+              subtitle: "Yaklaşan etkinlikleri kaçırma.",
+              bg: "linear-gradient(135deg, #22c55e, #2e8bff)"
+            },
+            {
+              emoji: "🧠",
+              title: "Süreklilik",
+              subtitle: "Mini adımlarla sürekli ilerle.",
+              bg: "linear-gradient(135deg, #2e8bff, #6a0dad)"
+            },
+            {
+              emoji: "✅",
+              title: "Güncelleme",
+              subtitle: "Her şey güncel ve düzenli.",
+              bg: "linear-gradient(135deg, #6a0dad, #f2c300)"
+            }
+          ]
+        },
+        {
+          frames: [
+            {
+              emoji: "🛡️",
+              title: "Güvenlik",
+              subtitle: "Daha stabil bir kullanıcı deneyimi.",
+              bg: "linear-gradient(135deg, #0ea5e9, #111827)"
+            },
+            {
+              emoji: "🧾",
+              title: "Kayıt",
+              subtitle: "Daha anlaşılır içerik akışı.",
+              bg: "linear-gradient(135deg, #111827, #6a0dad)"
+            },
+            {
+              emoji: "🧡",
+              title: "Topluluk",
+              subtitle: "Birlikte daha iyi.",
+              bg: "linear-gradient(135deg, #6a0dad, #f97316)"
+            }
+          ]
+        },
+        {
+          frames: [
+            {
+              emoji: "🎯",
+              title: "Odak",
+              subtitle: "Sana uygun içeriklere hızlı eriş.",
+              bg: "linear-gradient(135deg, #f97316, #f2c300)"
+            },
+            {
+              emoji: "⚡",
+              title: "Hızlı Geçiş",
+              subtitle: "Sağ/sol ile ileri-geri.",
+              bg: "linear-gradient(135deg, #f2c300, #6a0dad)"
+            },
+            {
+              emoji: "⏸️",
+              title: "Basılı Tut",
+              subtitle: "İçerik üzerinde basılı tutunca durur.",
+              bg: "linear-gradient(135deg, #6a0dad, #2e8bff)"
+            }
+          ]
+        },
+        {
+          frames: [
+            {
+              emoji: "🏁",
+              title: "Bitiriş",
+              subtitle: "Son frame'den sonra kapanır.",
+              bg: "linear-gradient(135deg, #2e8bff, #00c2a8)"
+            },
+            {
+              emoji: "🔁",
+              title: "Devam",
+              subtitle: "İstersen yeniden açıp izleyebilirsin.",
+              bg: "linear-gradient(135deg, #00c2a8, #f2c300)"
+            },
+            {
+              emoji: "👋",
+              title: "Görüşürüz",
+              subtitle: "Bir sonraki story'de buluşalım.",
+              bg: "linear-gradient(135deg, #f2c300, #6a0dad)"
+            }
+          ]
+        }
+      ];
+
+      const viewer = document.getElementById("storyViewer");
+      const closeBtn = document.getElementById("storyCloseBtn");
+      const prevBtn = document.getElementById("storyPrevBtn");
+      const nextBtn = document.getElementById("storyNextBtn");
+      const storyProgress = document.getElementById("storyProgress");
+      const storyFrame = document.getElementById("storyFrame");
+
+      const emojiEl = document.getElementById("storyFrameEmoji");
+      const titleEl = document.getElementById("storyFrameTitle");
+      const subtitleEl = document.getElementById("storyFrameSubtitle");
+
+      const state = {
+        isOpen: false,
+        isPaused: false,
+        storyIndex: 0,
+        frameIndex: 0,
+        frameElapsedMs: 0,
+        frameStartTs: 0,
+        rafId: null
+      };
+
+      function setFrameContent() {
+        const frame = stories[state.storyIndex].frames[state.frameIndex];
+        storyFrame.style.background = frame.bg;
+        emojiEl.textContent = frame.emoji;
+        titleEl.textContent = frame.title;
+        subtitleEl.textContent = frame.subtitle;
+      }
+
+      function renderProgress() {
+        const frames = stories[state.storyIndex].frames;
+        storyProgress.innerHTML = "";
+        for (let i = 0; i < frames.length; i++) {
+          const seg = document.createElement("div");
+          seg.className = "story-segment";
+
+          const bar = document.createElement("span");
+          seg.appendChild(bar);
+
+          storyProgress.appendChild(seg);
+        }
+      }
+
+      function syncProgressStatic() {
+        const bars = storyProgress.querySelectorAll(".story-segment > span");
+        bars.forEach((bar, i) => {
+          if (i < state.frameIndex) bar.style.width = "100%";
+          else bar.style.width = "0%";
+        });
+      }
+
+      function startTimerFromCurrentElapsed() {
+        if (state.rafId) cancelAnimationFrame(state.rafId);
+        state.frameStartTs = performance.now();
+
+        const tick = () => {
+          const elapsedTotal =
+            state.frameElapsedMs + (performance.now() - state.frameStartTs);
+          const pct = Math.min(1, elapsedTotal / durationMs);
+
+          const bars = storyProgress.querySelectorAll(".story-segment > span");
+          if (bars[state.frameIndex]) bars[state.frameIndex].style.width = pct * 100 + "%";
+
+          if (elapsedTotal >= durationMs) {
+            state.rafId = null;
+            goNext();
+            return;
+          }
+
+          state.rafId = requestAnimationFrame(tick);
+        };
+
+        state.rafId = requestAnimationFrame(tick);
+      }
+
+      function openViewer(storyIndex) {
+        state.isOpen = true;
+        state.isPaused = false;
+        state.storyIndex = storyIndex;
+        state.frameIndex = 0;
+        state.frameElapsedMs = 0;
+        state.rafId = null;
+
+        renderProgress();
+        setFrameContent();
+        syncProgressStatic();
+        viewer.classList.add("open");
+
+        document.body.style.overflow = "hidden";
+        startTimerFromCurrentElapsed();
+      }
+
+      function closeViewer() {
+        state.isOpen = false;
+        state.isPaused = false;
+        if (state.rafId) cancelAnimationFrame(state.rafId);
+        state.rafId = null;
+
+        viewer.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+
+      function setPaused(paused) {
+        if (!state.isOpen || state.isPaused === paused) return;
+        state.isPaused = paused;
+
+        if (paused) {
+          if (state.rafId) cancelAnimationFrame(state.rafId);
+          state.rafId = null;
+          state.frameElapsedMs =
+            state.frameElapsedMs + (performance.now() - state.frameStartTs);
+        } else {
+          startTimerFromCurrentElapsed();
+        }
+      }
+
+      function goNext() {
+        const frames = stories[state.storyIndex].frames;
+
+        if (state.frameIndex < frames.length - 1) {
+          state.frameIndex += 1;
+          state.frameElapsedMs = 0;
+          syncProgressStatic();
+          setFrameContent();
+          startTimerFromCurrentElapsed();
+          return;
+        }
+
+        if (state.storyIndex < stories.length - 1) {
+          state.storyIndex += 1;
+          state.frameIndex = 0;
+          state.frameElapsedMs = 0;
+          renderProgress();
+          setFrameContent();
+          syncProgressStatic();
+          startTimerFromCurrentElapsed();
+          return;
+        }
+
+        closeViewer();
+      }
+
+      function goPrev() {
+        if (state.frameIndex > 0) {
+          state.frameIndex -= 1;
+          state.frameElapsedMs = 0;
+          syncProgressStatic();
+          setFrameContent();
+          startTimerFromCurrentElapsed();
+          return;
+        }
+
+        if (state.storyIndex > 0) {
+          state.storyIndex -= 1;
+          state.frameIndex = stories[state.storyIndex].frames.length - 1;
+          state.frameElapsedMs = 0;
+          renderProgress();
+          setFrameContent();
+          syncProgressStatic();
+          startTimerFromCurrentElapsed();
+          return;
+        }
+
+        // En baştaysak sadece kaldığımız frame'i yeniden oynat.
+        state.frameElapsedMs = 0;
+        syncProgressStatic();
+        setFrameContent();
+        startTimerFromCurrentElapsed();
+      }
+
+      document.querySelectorAll(".story[data-story-index]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const idx = Number(btn.getAttribute("data-story-index") || "0");
+          openViewer(idx);
+        });
+      });
+
+      closeBtn.addEventListener("click", closeViewer);
+      nextBtn.addEventListener("click", () => {
+        if (!state.isOpen) return;
+        state.isPaused = false;
+        state.frameElapsedMs = 0;
+        goNext();
+      });
+      prevBtn.addEventListener("click", () => {
+        if (!state.isOpen) return;
+        state.isPaused = false;
+        state.frameElapsedMs = 0;
+        goPrev();
+      });
+
+      // Basılı tut = duraklat.
+      storyFrame.addEventListener("pointerdown", () => setPaused(true));
+      storyFrame.addEventListener("pointerup", () => setPaused(false));
+      storyFrame.addEventListener("pointercancel", () => setPaused(false));
+
+      // Esc ile kapat.
+      document.addEventListener("keydown", (e) => {
+        if (!state.isOpen) return;
+        if (e.key === "Escape") closeViewer();
+      });
+
+      // Sekme değişince duraklat.
+      document.addEventListener("visibilitychange", () => {
+        if (!state.isOpen) return;
+        setPaused(document.visibilityState !== "visible");
+      });
+
+      // Card dışına tıklayınca kapat.
+      viewer.addEventListener("click", (e) => {
+        if (!state.isOpen) return;
+        if (e.target === viewer) closeViewer();
+      });
+    })();
+  </script>
 </body>
 </html>
