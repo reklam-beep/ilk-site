@@ -1,32 +1,17 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-  <meta charset="UTF-8">
-  <title>İlk Sitem</title>
-</head>
-<body>
-
-  <h1>Merhaba 👋</h1>
-  <p>Bu benim ilk web sitem!</p>
-
-  <button>Tıkla</button>
-
-</body>
 </html><!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VetusClub Ana Sayfa</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400&display=swap" rel="stylesheet" />
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: "Ubuntu", Arial, Helvetica, sans-serif;
+      font-family: 'Ubuntu', sans-serif;
     }
 
     body {
@@ -238,6 +223,56 @@
       text-align: center;
     }
 
+    /* Sadece "Okul" kartı tıklanabilir görünsün */
+    .okul-card {
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .okul-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .okul-card:focus-visible {
+      outline: 3px solid rgba(106, 13, 173, 0.35);
+      outline-offset: 6px;
+    }
+
+    /* "Yakında" olan modüller: tıklanabilir görünsün ama silik görünsün */
+    .soon-card {
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      opacity: 0.5;
+      transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+    }
+
+    .soon-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .soon-card:focus-visible {
+      outline: 3px solid rgba(106, 13, 173, 0.35);
+      outline-offset: 6px;
+    }
+
+    .yakinda-tag {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: #6a0dad;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 16px;
+      box-shadow: 0 10px 22px rgba(106, 13, 173, 0.25);
+    }
+
     .mini-plus {
       position: absolute;
       left: 28px;
@@ -407,25 +442,31 @@
     </section>
 
     <section class="cards">
-        <div class="card" onclick="location.href='okul.html'">
+      <a class="card okul-card" href="okul.html" aria-label="Okul modülünü aç">
         <div class="mini-plus">+</div>
         <div class="card-icon">
           <img src="images/okul.svg" alt="Okul ikonu" />
         </div>
         <h2>Okul</h2>
-      </div>
+      </a>
 
-      <div class="card">
+      <a class="card soon-card" href="vetusblack.html" aria-label="VetUsBlack modülünü aç (Yakında)">
+        <div class="yakinda-tag">Yakında</div>
         <div class="mini-plus">+</div>
         <div class="card-icon">🌐</div>
         <h2>VetUsBlack</h2>
-      </div>
+      </a>
 
-      <div class="card">
+      <a
+        class="card soon-card"
+        href="sureklilik.html"
+        aria-label="Süreklilik modülünü aç (Yakında)"
+      >
+        <div class="yakinda-tag">Yakında</div>
         <div class="mini-plus">+</div>
         <div class="card-icon">🏅</div>
         <h2>Süreklilik</h2>
-      </div>
+      </a>
     </section>
   </div>
 
