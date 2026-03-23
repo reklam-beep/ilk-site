@@ -138,13 +138,11 @@
 
     .stories {
       margin: 28px 0 36px;
-      display: flex;
-      gap: 24px;
-      justify-content: flex-start;
-      overflow-x: auto;
-      padding: 0 4px 12px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 16px;
+      align-items: center;
+      justify-items: center;
     }
 
     .story {
@@ -159,7 +157,6 @@
       padding: 8px;
       border: 0;
       cursor: pointer;
-      scroll-snap-align: start;
     }
 
     .story-inner {
@@ -462,7 +459,8 @@
 
     @media (max-width: 1100px) {
       .stories {
-        gap: 18px;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
       }
 
       .cards {
@@ -491,7 +489,8 @@
       }
 
       .stories {
-        gap: 16px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
       }
 
       .welcome-text h1 {
@@ -522,7 +521,8 @@
 
     @media (max-width: 520px) {
       .stories {
-        gap: 14px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
       }
 
       .message-btn,
@@ -543,6 +543,53 @@
       .welcome-card {
         padding: 24px;
       }
+    }
+
+    /* Dark mode (Ay ikonuyla) */
+    body.dark {
+      background: #252525;
+      color: #e6e6e6;
+    }
+
+    body.dark .topbar {
+      background: #2f2f2f;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    body.dark .icon-btn,
+    body.dark .message-btn,
+    body.dark .user-btn {
+      background: #252525;
+      /* Renk markalı kalsın diye mevcut moru koruyoruz */
+      color: #6a0dad;
+    }
+
+    body.dark .welcome-card {
+      background: #2f2f2f;
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    body.dark .welcome-text p {
+      color: #bdbdbd;
+    }
+
+    body.dark .card {
+      background: #2f2f2f;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    body.dark .story {
+      background: #2f2f2f;
+      box-shadow: 0 14px 25px rgba(0, 0, 0, 0.25);
+    }
+
+    body.dark .mini-plus {
+      background: #252525;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+    }
+
+    body.dark .story-viewer-card {
+      background: #1b1b1b;
     }
   </style>
 </head>
@@ -665,6 +712,32 @@
   <script>
     (function () {
       const durationMs = 5000;
+
+      // Dark mode: Ay ikonuna tıklanınca aç/kapat + tercih sakla.
+      const themeKey = "theme";
+      const applyTheme = (theme) => {
+        const isDark = theme === "dark";
+        document.body.classList.toggle("dark", isDark);
+      };
+
+      const savedTheme = localStorage.getItem(themeKey);
+      if (savedTheme === "dark") applyTheme("dark");
+
+      const themeBtn =
+        document.querySelector('button.icon-btn[aria-label="Gece modu"]') ||
+        document.querySelector("button.icon-btn");
+
+      if (themeBtn) {
+        themeBtn.addEventListener("click", () => {
+          const nextTheme = document.body.classList.contains("dark") ? "light" : "dark";
+          applyTheme(nextTheme);
+          localStorage.setItem(themeKey, nextTheme);
+          themeBtn.setAttribute(
+            "aria-label",
+            nextTheme === "dark" ? "Aydınlık modu" : "Gece modu"
+          );
+        });
+      }
 
       // Placeholder story data: İstersen görseller/URL'ler ekleyip bu kısmı güncelleyebiliriz.
       const stories = [
