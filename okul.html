@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VetUsClub Okul Modülleri</title>
+  <title>VetUsClub Okul Sayfası</title>
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
 
   <style>
@@ -11,146 +11,352 @@
       box-sizing: border-box;
     }
 
+    :root {
+      --purple: #6e0aa8;
+      --purple-dark: #53107d;
+      --yellow: #f2c500;
+      --bg: #dbdbdb;
+      --white: #ffffff;
+      --text: #222222;
+      --muted: #555555;
+    }
+
     body {
       margin: 0;
       font-family: 'Ubuntu', sans-serif;
-      background: #efefef;
+      background: var(--bg);
+      color: var(--text);
     }
 
-    .school-section {
-      max-width: 1440px;
+    .page {
+      max-width: 1180px;
       margin: 0 auto;
-      padding: 28px 38px 40px;
+      padding: 26px 28px 34px;
     }
 
-    .school-grid {
+    .topbar {
+      background: #f5f5f5;
+      border-radius: 22px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 18px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 25px;
+      font-weight: 700;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .logo-plus {
+      width: 20px;
+      height: 20px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .logo-plus::before,
+    .logo-plus::after {
+      content: "";
+      position: absolute;
+      background: var(--yellow);
+      border-radius: 5px;
+    }
+
+    .logo-plus::before {
+      width: 20px;
+      height: 7px;
+      left: 0;
+      top: 6.5px;
+    }
+
+    .logo-plus::after {
+      width: 7px;
+      height: 20px;
+      left: 6.5px;
+      top: 0;
+    }
+
+    .logo-vet {
+      color: var(--purple);
+    }
+
+    .logo-us {
+      color: var(--yellow);
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .mini-btn {
+      height: 34px;
+      border-radius: 999px;
+      border: 1.8px solid var(--purple);
+      background: #fff;
+      color: var(--purple);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      font-size: 13px;
+      text-decoration: none;
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .moon-btn {
+      width: 34px;
+      padding: 0;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .notif-dot {
+      position: absolute;
+      top: -4px;
+      left: -2px;
+      background: #e14b5a;
+      color: #fff;
+      min-width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      font-size: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 3px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .user-btn::after {
+      content: "⌄";
+      margin-left: 8px;
+      font-size: 12px;
+      transform: translateY(-1px);
+    }
+
+    .welcome-card {
+      background: #f3f3f3;
+      border-radius: 28px;
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+
+    .welcome-text h1 {
+      margin: 0 0 8px;
+      font-size: 22px;
+      font-weight: 500;
+      color: #1f1f1f;
+    }
+
+    .welcome-text p {
+      margin: 0;
+      font-size: 15px;
+      color: #222;
+      font-style: italic;
+    }
+
+    .profile-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 172px;
+      height: 30px;
+      padding: 0 20px;
+      background: var(--purple);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .modules-wrap {
+      position: relative;
+      padding-bottom: 22px;
+    }
+
+    .bottom-stripes {
+      position: absolute;
+      left: -28px;
+      right: -28px;
+      bottom: 58px;
+      z-index: 0;
+    }
+
+    .bottom-stripes .yellow-line {
+      height: 22px;
+      background: var(--yellow);
+    }
+
+    .bottom-stripes .purple-line {
+      height: 18px;
+      background: var(--purple);
+      margin-top: 5px;
+    }
+
+    .modules-grid {
+      position: relative;
+      z-index: 2;
       display: grid;
-      grid-template-columns: 230px 1fr 230px;
+      grid-template-columns: 193px 1fr 193px;
       gap: 34px;
       align-items: stretch;
     }
 
-    /* SOL / SAĞ MODÜL KARTLARI */
-    .side-card {
+    .module-card {
       position: relative;
       min-height: 360px;
-      border-radius: 28px;
+      border-radius: 30px;
       overflow: hidden;
+      box-shadow: 0 16px 28px rgba(0,0,0,0.16);
+      text-decoration: none;
       display: flex;
       align-items: flex-end;
-      padding: 26px 20px;
-      box-shadow: 0 14px 30px rgba(0,0,0,0.16);
-      text-decoration: none;
+      padding: 26px 18px;
+      isolation: isolate;
     }
 
-    .side-card::before {
+    .module-card::before {
       content: "";
       position: absolute;
       inset: 0;
       background-size: cover;
       background-position: center;
       transform: scale(1.03);
-      transition: transform 0.35s ease;
+      filter: blur(1.2px);
+      z-index: -3;
+      transition: transform .35s ease;
     }
 
-    .side-card::after {
+    .module-card::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(45, 12, 74, 0.78), rgba(95, 34, 148, 0.32));
+      z-index: -2;
     }
 
-    .side-card:hover::before {
+    .module-card:hover::before {
       transform: scale(1.08);
     }
 
-    .side-card-content {
+    .derslik-card::before {
+      background-image:
+        linear-gradient(rgba(132, 77, 180, 0.35), rgba(132, 77, 180, 0.35)),
+        url("./images/derslik.jpg");
+    }
+
+    .derslik-card::after {
+      background: linear-gradient(to top, rgba(36, 23, 85, 0.78), rgba(133, 77, 180, 0.36));
+    }
+
+    .atolye-card::before {
+      background-image:
+        linear-gradient(rgba(248, 214, 75, 0.28), rgba(248, 214, 75, 0.28)),
+        url("./images/atolye.jpg");
+      background-position: center;
+    }
+
+    .atolye-card::after {
+      background: linear-gradient(to top, rgba(42, 28, 82, 0.74), rgba(255, 218, 84, 0.20));
+    }
+
+    .module-title-wrap {
       position: relative;
       z-index: 2;
       color: #fff;
     }
 
-    .side-card-title {
+    .module-title {
       font-size: 28px;
       font-weight: 700;
       margin: 0;
-      line-height: 1.1;
+      line-height: 1;
+      letter-spacing: 0.2px;
     }
 
-    .side-card-line {
-      width: 62px;
+    .module-line {
+      width: 60px;
       height: 6px;
-      border-radius: 30px;
-      background: #f4c400;
+      border-radius: 999px;
+      background: var(--yellow);
       margin-top: 14px;
+      transition: transform .28s ease, width .28s ease, box-shadow .28s ease;
+      transform-origin: left center;
     }
 
-    .card-derslik::before {
-      background-image:
-        linear-gradient(rgba(101, 38, 155, 0.35), rgba(101, 38, 155, 0.35)),
-        url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=900&q=80');
+    .module-card:hover .module-line {
+      width: 76px;
+      transform: translateX(10px);
+      box-shadow: 0 0 12px rgba(242, 197, 0, 0.45);
     }
 
-    .card-atolye::before {
-      background-image:
-        linear-gradient(rgba(244, 196, 0, 0.22), rgba(244, 196, 0, 0.22)),
-        url('https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=900&q=80');
-    }
-
-    /* ORTA ALAN */
     .center-panel {
       position: relative;
       min-height: 360px;
-      border-radius: 28px;
+      border-radius: 30px;
       overflow: hidden;
-      box-shadow: 0 14px 30px rgba(0,0,0,0.14);
-      background:
-        linear-gradient(rgba(255,255,255,0.06), rgba(255,255,255,0.06)),
-        url('https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1400&q=80');
-      background-size: cover;
-      background-position: center;
+      box-shadow: 0 16px 28px rgba(0,0,0,0.13);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 22px;
+      isolation: isolate;
+    }
+
+    .center-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255,255,255,0.10), rgba(255,255,255,0.10)),
+        url("./images/pano.jpg");
+      background-size: cover;
+      background-position: center;
+      filter: blur(2.2px);
+      transform: scale(1.05);
+      z-index: -2;
     }
 
     .center-panel::after {
       content: "";
       position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 36px;
-      height: 10px;
-      background: linear-gradient(
-        to right,
-        #f0c400 0%,
-        #f0c400 68%,
-        #6f14a4 68%,
-        #6f14a4 100%
-      );
-      z-index: 0;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.07), rgba(255,255,255,0.10));
+      z-index: -1;
     }
 
-    /* DUYURU PANOSU */
     .board {
-      position: relative;
-      z-index: 2;
       width: 100%;
       max-width: 760px;
-      background: transparent;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      position: relative;
+      z-index: 2;
     }
 
     .notes-area {
       display: flex;
-      gap: 70px;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      gap: 86px;
       width: 100%;
-      flex-wrap: wrap;
+      min-height: 280px;
     }
 
     .note {
@@ -159,39 +365,47 @@
       --floatY: 0px;
       --liftY: 0px;
       position: relative;
-      width: 190px;
-      height: 270px;
-      padding: 24px 18px;
-      text-align: center;
+      width: 178px;
+      height: 238px;
       background:
         repeating-linear-gradient(
           0deg,
           rgba(0,0,0,0.01) 0px,
           rgba(0,0,0,0.01) 1px,
-          rgba(255,255,255,0.02) 2px,
-          rgba(255,255,255,0.02) 4px
+          rgba(255,255,255,0.03) 2px,
+          rgba(255,255,255,0.03) 4px
         ),
-        linear-gradient(180deg, #ffffff 0%, #f2f2f2 100%);
-      box-shadow: 0 14px 20px rgba(0,0,0,0.16);
+        linear-gradient(180deg, #fefefe 0%, #efefef 100%);
+      padding: 22px 14px 18px;
+      text-align: center;
+      box-shadow: 0 14px 20px rgba(0,0,0,0.14);
       transform: rotate(var(--rotate)) translate(var(--floatX), calc(var(--floatY) + var(--liftY)));
+      transform-origin: top center;
       transition: transform .25s ease, box-shadow .25s ease;
       cursor: pointer;
-      transform-origin: top center;
     }
 
     .note:hover {
       --liftY: -8px;
-      box-shadow: 0 20px 28px rgba(0,0,0,0.2);
+      box-shadow: 0 20px 28px rgba(0,0,0,0.18);
       animation: wobble .9s ease-in-out infinite alternate;
     }
 
     @keyframes wobble {
       0% {
-        transform: rotate(calc(var(--rotate) - 1.2deg)) translate(var(--floatX), calc(var(--floatY) + var(--liftY)));
+        transform: rotate(calc(var(--rotate) - 1.1deg)) translate(var(--floatX), calc(var(--floatY) + var(--liftY)));
       }
       100% {
-        transform: rotate(calc(var(--rotate) + 1.2deg)) translate(var(--floatX), calc(var(--floatY) + var(--liftY)));
+        transform: rotate(calc(var(--rotate) + 1.1deg)) translate(var(--floatX), calc(var(--floatY) + var(--liftY)));
       }
+    }
+
+    .note.pin-left {
+      margin-top: 28px;
+    }
+
+    .note.pin-right {
+      margin-top: -4px;
     }
 
     .pin {
@@ -205,284 +419,77 @@
       box-shadow:
         inset -2px -2px 4px rgba(0,0,0,0.25),
         inset 2px 2px 3px rgba(255,255,255,0.6),
-        0 4px 6px rgba(0,0,0,0.2);
+        0 4px 6px rgba(0,0,0,0.22);
     }
 
     .pin::after {
       content: "";
       position: absolute;
       width: 2px;
-      height: 22px;
-      background: #666;
+      height: 20px;
+      background: #757575;
       left: 50%;
       top: 12px;
       transform: translateX(-50%) rotate(5deg);
       border-radius: 2px;
     }
 
-    .pin-white { background: #f3f3f3; }
-    .pin-purple { background: #7b4edb; }
-    .pin-orange { background: #c68034; }
-    .pin-red { background: #c94c4c; }
-    .pin-gold { background: #caa43b; }
+    .pin-white { background: #ededed; }
+    .pin-red { background: #d61f26; }
 
     .note h2 {
-      font-size: 18px;
-      margin: 18px 0 10px;
-      font-weight: 700;
+      margin: 18px 0 12px;
+      color: #383838;
+      font-size: 16px;
       line-height: 1.2;
-      color: #2f2f2f;
+      font-weight: 700;
     }
 
     .note p {
-      font-size: 13px;
-      line-height: 1.45;
-      color: #555;
-      margin-bottom: 16px;
+      margin: 0 0 16px;
+      color: #5d5d5d;
+      font-size: 12px;
+      line-height: 1.38;
     }
 
     .btn {
-      display: inline-block;
-      background: #7447bb;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 96px;
+      height: 30px;
+      border-radius: 999px;
+      background: var(--purple);
       color: #fff;
       text-decoration: none;
-      padding: 8px 18px;
-      border-radius: 30px;
-      font-size: 13px;
-      font-weight: 600;
-      box-shadow: 0 6px 14px rgba(116,71,187,0.3);
-      transition: background .2s ease, transform .2s ease;
-    }
-
-    .btn:hover {
-      background: #6136a4;
-      transform: translateY(-1px);
-    }
-
-    /* MOBİL */
-    @media (max-width: 1100px) {
-      .school-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .side-card {
-        min-height: 240px;
-      }
-
-      .center-panel {
-        min-height: auto;
-        padding: 26px 12px 30px;
-      }
-
-      .center-panel::after {
-        bottom: 22px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .school-section {
-        padding: 18px 14px 28px;
-      }
-
-      .notes-area {
-        flex-direction: column;
-        gap: 22px;
-      }
-
-      .note {
-        width: 155px;
-        height: 190px !important;
-        padding: 14px 10px;
-      }
-
-      .note h2 {
-        font-size: 11px;
-        margin: 10px 0 7px;
-        line-height: 1.15;
-      }
-
-      .note p {
-        font-size: 9px;
-        line-height: 1.28;
-        margin-bottom: 10px;
-      }
-
-      .btn {
-        font-size: 9px;
-        padding: 6px 10px;
-      }
-
-      .pin {
-        width: 11px;
-        height: 11px;
-        top: -10px;
-      }
-
-      .pin::after {
-        height: 15px;
-        top: 8px;
-      }
-
-      .side-card-title {
-        font-size: 24px;
-      }
-    }
-
-    /* TOPBAR (Ana sayfadaki gibi: ikon + dark mode) */
-    .topbar {
-      width: 100%;
-      max-width: 1440px;
-      margin: 26px auto 26px;
-      background: #f8f8f8;
-      border-radius: 28px;
-      padding: 18px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 800;
-      font-size: 22px;
-      color: #5f0aa7;
-    }
-
-    .logo-plus {
-      width: 18px;
-      height: 18px;
-      position: relative;
-      display: inline-block;
-    }
-
-    .logo-plus::before,
-    .logo-plus::after {
-      content: "";
-      position: absolute;
-      background: #f2c300;
-      border-radius: 4px;
-    }
-
-    .logo-plus::before {
-      width: 18px;
-      height: 6px;
-      top: 6px;
-      left: 0;
-    }
-
-    .logo-plus::after {
-      width: 6px;
-      height: 18px;
-      top: 0;
-      left: 6px;
-    }
-
-    .logo span.small {
-      color: #f2c300;
-    }
-
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .icon-btn {
-      border: 2px solid #6a0dad;
-      background: #fff;
-      color: #6a0dad;
-      border-radius: 999px;
-      height: 52px;
-      width: 52px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 20px;
-      position: relative;
-    }
-
-    .notif {
-      position: absolute;
-      top: -6px;
-      right: -4px;
-      background: #e05555;
-      color: white;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      font-size: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-    }
-
-    /* ÜYE KARŞILAMA (Ana sayfadaki gibi) */
-    .welcome-card {
-      background: #f8f8f8;
-      border-radius: 30px;
-      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.08);
-      padding: 38px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      margin-bottom: 38px;
-    }
-
-    .welcome-text h1 {
-      font-size: 34px;
-      line-height: 1.2;
-      margin-bottom: 16px;
-      font-weight: 800;
-    }
-
-    .welcome-text p {
-      font-size: 26px;
-      color: #666;
-      font-style: italic;
-    }
-
-    .profile-btn {
-      background: #6a0dad;
-      color: white;
-      border: none;
-      border-radius: 999px;
-      padding: 18px 42px;
-      font-size: 18px;
+      font-size: 11px;
       font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 12px 22px rgba(106, 13, 173, 0.22);
-      white-space: nowrap;
+      padding: 0 12px;
+      box-shadow: 0 6px 14px rgba(110,10,168,0.25);
     }
 
-    /* Dark mode */
     body.dark {
-      background: #252525;
-      color: #e6e6e6;
+      background: #262626;
+      color: #e9e9e9;
     }
 
-    body.dark .topbar {
-      background: #2f2f2f;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-    }
-
-    body.dark .icon-btn {
-      background: #252525;
-      color: #6a0dad;
-    }
-
+    body.dark .topbar,
     body.dark .welcome-card {
-      background: #2f2f2f;
-      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.4);
+      background: #313131;
+    }
+
+    body.dark .mini-btn {
+      background: #222;
+      color: #d9b6ff;
+      border-color: #a65ce8;
+    }
+
+    body.dark .welcome-text h1 {
+      color: #fff;
     }
 
     body.dark .welcome-text p {
-      color: #bdbdbd;
+      color: #d0d0d0;
     }
 
     body.dark .note {
@@ -494,178 +501,238 @@
           rgba(0,0,0,0.02) 2px,
           rgba(0,0,0,0.02) 4px
         ),
-        linear-gradient(180deg, #1b1b1b 0%, #101010 100%);
-      box-shadow: 0 14px 20px rgba(0, 0, 0, 0.55);
+        linear-gradient(180deg, #222 0%, #151515 100%);
     }
 
     body.dark .note h2 {
-      color: #f1f1f1;
+      color: #f5f5f5;
     }
 
     body.dark .note p {
-      color: #bdbdbd;
+      color: #d0d0d0;
+    }
+
+    @media (max-width: 1100px) {
+      .modules-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .module-card,
+      .center-panel {
+        min-height: 290px;
+      }
+
+      .bottom-stripes {
+        bottom: 42px;
+      }
+
+      .notes-area {
+        gap: 32px;
+      }
     }
 
     @media (max-width: 768px) {
+      .page {
+        padding: 16px 14px 24px;
+      }
+
       .topbar {
         flex-direction: column;
-        gap: 16px;
         align-items: flex-start;
       }
 
       .welcome-card {
         flex-direction: column;
         align-items: flex-start;
-        padding: 24px;
-      }
-
-      .profile-btn {
-        align-self: flex-start;
+        padding: 18px;
       }
 
       .welcome-text h1 {
-        font-size: 28px;
+        font-size: 19px;
       }
 
       .welcome-text p {
-        font-size: 20px;
+        font-size: 14px;
+      }
+
+      .profile-btn {
+        min-width: auto;
+      }
+
+      .modules-grid {
+        gap: 18px;
+      }
+
+      .module-card,
+      .center-panel {
+        min-height: 240px;
+      }
+
+      .notes-area {
+        flex-direction: column;
+        gap: 24px;
+        padding: 16px 0;
+      }
+
+      .note {
+        width: 150px;
+        height: 190px !important;
+        padding: 15px 10px 12px;
+      }
+
+      .note.pin-left,
+      .note.pin-right {
+        margin-top: 0;
+      }
+
+      .note h2 {
+        font-size: 11px;
+        margin: 12px 0 8px;
+      }
+
+      .note p {
+        font-size: 9px;
+        margin-bottom: 10px;
+      }
+
+      .btn {
+        min-width: 84px;
+        height: 24px;
+        font-size: 9px;
+      }
+
+      .module-title {
+        font-size: 24px;
+      }
+
+      .bottom-stripes {
+        left: -14px;
+        right: -14px;
+        bottom: 30px;
+      }
+
+      .bottom-stripes .yellow-line {
+        height: 16px;
+      }
+
+      .bottom-stripes .purple-line {
+        height: 13px;
       }
     }
   </style>
 </head>
 <body>
 
-  <header class="topbar">
-    <div class="logo">
-      <span class="logo-plus"></span>
-      <span><span class="small">vetus</span>club</span>
-    </div>
+  <div class="page">
 
-    <div class="top-actions">
-      <button class="icon-btn" aria-label="Gece modu" type="button">
-        ☾
-        <span class="notif">2</span>
-      </button>
-    </div>
-  </header>
+    <header class="topbar">
+      <div class="logo">
+        <span class="logo-plus"></span>
+        <span>
+          <span class="logo-vet">vet</span><span class="logo-us">us</span><span class="logo-vet">club</span>
+        </span>
+      </div>
 
-  <section class="school-section">
+      <div class="topbar-right">
+        <button class="mini-btn moon-btn" id="themeToggle" type="button" aria-label="Tema değiştir">◔</button>
+        <a href="#" class="mini-btn">
+          <span class="notif-dot">1</span>
+          Mesaj Kutusu
+        </a>
+        <a href="#" class="mini-btn user-btn">Anıl Lokman</a>
+      </div>
+    </header>
+
     <section class="welcome-card">
       <div class="welcome-text">
-        <h1>VetUsClub'a Hoş Geldiniz, Üye</h1>
-        <p>Modülleri görüntülemek için profil bilgilerinizi güncelleyiniz.</p>
+        <h1>VetUsClub’a Hoş Geldiniz, Anıl Lokman</h1>
+        <p>Modülleri görüntülemek için profil bilgilerinizi güncelleyiniz..</p>
       </div>
-      <button class="profile-btn" type="button">Profil Bilgilerim</button>
+      <a href="#" class="profile-btn">Profil Bilgilerim</a>
     </section>
 
-    <div class="school-grid">
-
-      <!-- SOL KART -->
-      <a href="https://www.vetusclub.com.tr" class="side-card card-derslik">
-        <div class="side-card-content">
-          <h3 class="side-card-title">Derslik</h3>
-          <div class="side-card-line"></div>
-        </div>
-      </a>
-
-      <!-- ORTA DUYURU PANOSU -->
-      <div class="center-panel">
-        <div class="board">
-          <div class="notes-area" id="notesArea"></div>
-        </div>
+    <section class="modules-wrap">
+      <div class="bottom-stripes">
+        <div class="yellow-line"></div>
+        <div class="purple-line"></div>
       </div>
 
-      <!-- SAĞ KART -->
-      <a href="https://www.vetusclub.com.tr" class="side-card card-atolye">
-        <div class="side-card-content">
-          <h3 class="side-card-title">Atölye</h3>
-          <div class="side-card-line"></div>
-        </div>
-      </a>
+      <div class="modules-grid">
 
-    </div>
-  </section>
+        <a href="https://www.vetusclub.com.tr" class="module-card derslik-card">
+          <div class="module-title-wrap">
+            <h3 class="module-title">Derslik</h3>
+            <div class="module-line"></div>
+          </div>
+        </a>
+
+        <div class="center-panel">
+          <div class="board">
+            <div class="notes-area" id="notesArea"></div>
+          </div>
+        </div>
+
+        <a href="https://www.vetusclub.com.tr" class="module-card atolye-card">
+          <div class="module-title-wrap">
+            <h3 class="module-title">Atölye</h3>
+            <div class="module-line"></div>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+  </div>
 
   <script>
     (function () {
-      // Dark mode: Ay ikonuna tıklanınca aç/kapat + tercih sakla.
-      const themeKey = "theme";
-      const applyTheme = (theme) => {
-        const isDark = theme === "dark";
-        document.body.classList.toggle("dark", isDark);
-      };
+      const themeBtn = document.getElementById("themeToggle");
+      const storageKey = "vetusclub-theme";
 
-      const savedTheme = localStorage.getItem(themeKey);
-      if (savedTheme === "dark") applyTheme("dark");
-
-      const themeBtn =
-        document.querySelector('button.icon-btn[aria-label="Gece modu"]') ||
-        document.querySelector("button.icon-btn");
-
-      if (themeBtn) {
-        themeBtn.addEventListener("click", () => {
-          const nextTheme = document.body.classList.contains("dark") ? "light" : "dark";
-          applyTheme(nextTheme);
-          localStorage.setItem(themeKey, nextTheme);
-          themeBtn.setAttribute(
-            "aria-label",
-            nextTheme === "dark" ? "Aydınlık modu" : "Gece modu"
-          );
-        });
+      function applyTheme(theme) {
+        document.body.classList.toggle("dark", theme === "dark");
       }
+
+      const savedTheme = localStorage.getItem(storageKey);
+      if (savedTheme) applyTheme(savedTheme);
+
+      themeBtn.addEventListener("click", function () {
+        const nextTheme = document.body.classList.contains("dark") ? "light" : "dark";
+        applyTheme(nextTheme);
+        localStorage.setItem(storageKey, nextTheme);
+      });
     })();
-
-    const pinColors = [
-      "pin-white",
-      "pin-purple",
-      "pin-orange",
-      "pin-red",
-      "pin-gold"
-    ];
-
-    const rotateValues = [-7, -5, -3, 3, 5, 7];
-    const heightValues = [258, 266, 274, 282];
-
-    function randomPinColor() {
-      return pinColors[Math.floor(Math.random() * pinColors.length)];
-    }
-
-    function randomRotate() {
-      return rotateValues[Math.floor(Math.random() * rotateValues.length)];
-    }
-
-    function randomHeight() {
-      return heightValues[Math.floor(Math.random() * heightValues.length)];
-    }
 
     const notes = [
       {
         title: "Yeni Eğitim Videosu Yayında!",
-        text: "Doç. Dr. Mert Polat'ın sunumları ile yeni eğitim içeriğimizi hemen izleyebilirsiniz.",
+        text: "Doç. Dr. Mert Polat’ın sunumları ile “Yeni ve Topikalerde” konulu uygulamalı videosu yayında!",
         button: "Eğitime Katılın",
-        link: "https://www.vetusclub.com.tr"
+        link: "https://www.vetusclub.com.tr",
+        pin: "pin-white",
+        className: "pin-left",
+        rotate: -6
       },
       {
         title: "Atölye Uygulaması İçin Bir Fikrim Var!",
-        text: "VetusClub ile birlikte gelişime önem veriyor, düşüncelerinizi hayata geçiriyoruz.",
+        text: "VetusClub ile birlikte geliştirmeye önem veriyor, düşüncelerinizin hayata geçiriyoruz.",
         button: "İletişime Geçin",
-        link: "https://www.vetusclub.com.tr"
+        link: "https://www.vetusclub.com.tr",
+        pin: "pin-red",
+        className: "pin-right",
+        rotate: 7
       }
     ];
 
     const area = document.getElementById("notesArea");
 
-    notes.forEach(note => {
+    notes.forEach((note) => {
       const el = document.createElement("div");
-      const randomDeg = randomRotate();
-      const randomH = randomHeight();
-
-      el.className = "note";
-      el.style.setProperty("--rotate", `${randomDeg}deg`);
-      el.style.height = `${randomH}px`;
+      el.className = `note ${note.className || ""}`;
+      el.style.setProperty("--rotate", `${note.rotate || 0}deg`);
 
       el.innerHTML = `
-        <div class="pin ${randomPinColor()}"></div>
+        <div class="pin ${note.pin || "pin-white"}"></div>
         <h2>${note.title}</h2>
         <p>${note.text}</p>
         <a href="${note.link}" class="btn" target="_blank" rel="noopener noreferrer">${note.button}</a>
@@ -674,7 +741,7 @@
       area.appendChild(el);
     });
 
-    document.querySelectorAll(".note").forEach(note => {
+    document.querySelectorAll(".note").forEach((note) => {
       note.addEventListener("mousemove", (e) => {
         if (window.innerWidth <= 768) return;
 
@@ -682,8 +749,8 @@
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
-        const moveX = (x - rect.width / 2) / 25;
-        const moveY = (y - rect.height / 2) / 30;
+        const moveX = (x - rect.width / 2) / 28;
+        const moveY = (y - rect.height / 2) / 34;
 
         note.style.setProperty("--floatX", `${moveX}px`);
         note.style.setProperty("--floatY", `${moveY}px`);
